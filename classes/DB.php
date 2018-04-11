@@ -77,7 +77,7 @@ class DB {
       if(in_array($operator, $operators)) {
 
         // Construct query
-        $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ?";
+        $sql = "{$action} FROM {$table} WHERE {$flied} {$operator} ?";
 
         // Use query method to perform a query
         if(!$this->query($sql, array($value))->error()) {
