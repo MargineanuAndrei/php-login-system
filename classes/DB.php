@@ -44,7 +44,7 @@ class DB {
 
       // Execute Query
       if($this->_query->execute()) {
-        $this->_result = $this->_query->fetchAll(PDO::FETCH_OBJ);
+        $this->_results = $this->_query->fetchAll(PDO::FETCH_OBJ);
         $this->_count = $this->_query->rowCount();
       } else {
         $this->_error = True;
@@ -92,6 +92,16 @@ class DB {
   public function get($table, $where) {
     // Call action method this specified action
     return $this->action('SELECT *', $table, $where);
+  }
+
+  // Method to return query result
+  public function results() {
+    return $this->_results;
+  }
+
+  // Method to return first resolt from resolt array
+  public function first() {
+    return $this->results()[0];
   }
 
   // Method to delete data from db

@@ -6,5 +6,5 @@ $user = DB::getInstance()->get('users', array('username', '=', 'Alex'));
 if(!$user->count()) {
   echo 'No user';
 } else {
-  echo 'Ok';
+    echo $user->first()->username;
 }
