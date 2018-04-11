@@ -28,7 +28,7 @@ class DB {
 
   // Query db method
   public function query($sql, $params = array()) {
-    $this->_error = false;
+    $this->_error = False;
 
     // Run pdo prepare method
     if($this->_query = $this->_pdo->prepare($sql)) {
@@ -47,7 +47,7 @@ class DB {
         $this->_result = $this->_query->fetchAll(PDO::FETCH_OBJ);
         $this->_count = $this->_query->rowCount();
       } else {
-        $this->_error = true;
+        $this->_error = True;
       }
     }
     return $this;
@@ -57,4 +57,52 @@ class DB {
   public function error(){
     return $this->_error;
   }
+
+  // Action method performed on database
+  public function action($action, $table, $where = array()) {
+
+    // Check if the count of where is equal to three
+    // becouse I need a flied an operator and a value
+    if(count($where) === 3) {
+
+      // List of operator that are allow
+      $operators = array('=', '<', '>', '>=', '<=');
+
+      // Extract data from where
+      $flied    = $where[0];
+      $operator = $where[1];
+      $value    = $where[2];
+
+      // Check if operator is allowed
+      if(in_array($operator, $operators)) {
+
+        // Construct query
+        $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ?";
+
+        // Use query method to perform a query
+        if(!$this->query($sql, array($value))->error()) {
+          return $this;
+        }
+      }
+    }
+    return False;
+  }
+
+  // Method to get data from db
+  public function get($table, $where) {
+    // Call action method this specified action
+    return $this->action('SELECT *', $table, $where);
+  }
+
+  // Method to delete data from db
+  public function delete($table, $where) {
+    // Call action method this specified action
+    return $this->action('DELETE', $table, $where);
+  }
+
+  // Method to return resolt count
+  public function count() {
+    return $this->_count;
+  }
+
 }
