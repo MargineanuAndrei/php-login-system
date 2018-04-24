@@ -94,6 +94,31 @@ class DB {
     return $this->action('SELECT *', $table, $where);
   }
 
+  // Method to insert data in db
+  public function insert($table, $fields = array()) {
+    // Check if fields array is not empthy
+    if(count($fields)) {
+      // Array of keys from flieds
+      $keys = array_keys($fields);
+      $values = '';
+
+      // Iteration from building values string 
+      for($x = 1; $x <= count($fields); $x++) {
+        $x == count($fields) ? $values .= '?' : $values .= '?, ';
+      }
+
+      // Insert sql query structure
+      $sql = "INSERT INTO {$table} (`" . implode('`,`', $keys) . "`) VALUES ({$values})";
+
+      // Query db and check if there is no errors
+      if(!$this->query($sql, $fields)->error()) return True;
+      // In case of errors return false
+      return False;
+    }
+    // In case fields array is emthy return false
+    return False;
+  }
+
   // Method to return query result
   public function results() {
     return $this->_results;

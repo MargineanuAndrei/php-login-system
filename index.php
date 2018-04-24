@@ -1,10 +1,8 @@
 <?php
 require_once 'core/init.php';
 
-$user = DB::getInstance()->get('users', array('username', '=', 'Alex'));
-
-if(!$user->count()) {
-  echo 'No user';
-} else {
-    echo $user->first()->username;
-}
+$user = DB::getInstance()->insert('users', array(
+	'username' => 'Ion',
+	'password' => 'password',
+	'salt' => 'salt'
+));
