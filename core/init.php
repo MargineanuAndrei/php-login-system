@@ -1,8 +1,8 @@
 <?php
-// Start a session
+# Start a session
 session_start();
 
-// Define glogal config variable
+# Define glogal config variable
 $GLOBALS['config'] = array(
   'mysql' => array(
     'host' => '127.0.0.1',
@@ -19,10 +19,10 @@ $GLOBALS['config'] = array(
   )
 );
 
-// This function runs each time class is accessed
+# This function runs each time class is accessed
 spl_autoload_register(function($class){
   require_once 'classes/'.$class.'.php';
 });
 
-// Include functions
+# Include functions
 require_once 'functions/sanitize.php';
