@@ -53,16 +53,11 @@ class DB {
     return $this;
   }
 
-  // Method to return errors
-  public function error(){
-    return $this->_error;
-  }
-
   // Action method performed on database
   public function action($action, $table, $where = array()) {
 
-    // Check if the count of where is equal to three
-    // becouse I need a flied an operator and a value
+    /* Check if the count of where is equal to three
+    becouse I need a flied an operator and a value */
     if(count($where) === 3) {
 
       // List of operator that are allow
@@ -85,6 +80,7 @@ class DB {
         }
       }
     }
+    // Return false is case of missing parammeter
     return False;
   }
 
@@ -92,6 +88,12 @@ class DB {
   public function get($table, $where) {
     // Call action method this specified action
     return $this->action('SELECT *', $table, $where);
+  }
+
+    // Method to delete data from db
+  public function delete($table, $where) {
+    // Call action method this specified action
+    return $this->action('DELETE', $table, $where);
   }
 
   // Method to insert data in db
@@ -146,6 +148,16 @@ class DB {
     return False;
   }
 
+  // Method to return errors
+  public function error(){
+    return $this->_error;
+  }
+
+  // Method to return resolt count
+  public function count() {
+    return $this->_count;
+  }
+
   // Method to return query result
   public function results() {
     return $this->_results;
@@ -154,17 +166,6 @@ class DB {
   // Method to return first resolt from resolt array
   public function first() {
     return $this->results()[0];
-  }
-
-  // Method to delete data from db
-  public function delete($table, $where) {
-    // Call action method this specified action
-    return $this->action('DELETE', $table, $where);
-  }
-
-  // Method to return resolt count
-  public function count() {
-    return $this->_count;
   }
 
 }
