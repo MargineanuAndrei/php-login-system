@@ -1,8 +1,7 @@
 <?php
 require_once 'core/init.php';
 
-$user = DB::getInstance()->insert('users', array(
-	'username' => 'Ion',
+$user = DB::getInstance()->update('users', 2, array(
 	'password' => 'password',
-	'salt' => 'salt'
+	'name' => 'Roland Ironside'
 ));

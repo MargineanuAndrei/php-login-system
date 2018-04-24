@@ -119,6 +119,33 @@ class DB {
     return False;
   }
 
+
+  // Method to update data in db
+  public function update($table, $id, $fields = array()) {
+    // Check if fields array is not empthy
+    if(count($fields)) {
+
+      // Array of keys from flieds object
+      $keys = array_keys($fields);
+      $set = '';
+
+      // Iteration to build set string
+      for($x = 0; $x < count($keys); $x++) {
+        $x + 1 == count($keys) ? $set .= $keys[$x] . ' = ? ' : $set .= $keys[$x] . ' = ? , ';
+      }
+
+      // Update sql query structure
+      $sql = "UPDATE {$table} SET {$set} WHERE id = {$id}";
+
+      // Query db and check if there is no errors
+      if(!$this->query($sql, $fields)->error()) return True;
+      // In case of errors return false
+      return False;
+    }
+    // In case fields array is emthy return false
+    return False;
+  }
+
   // Method to return query result
   public function results() {
     return $this->_results;
