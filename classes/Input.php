@@ -1,6 +1,6 @@
 <?php
 class Input {
-	# Method to check if type is correct
+	# Method to check if type exists 
 	public static function exists($type = 'post') {
 		# Switch with posible types
 		switch ($type) {
