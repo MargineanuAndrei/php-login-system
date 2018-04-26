@@ -2,37 +2,43 @@
 require_once 'core/init.php';
 
 if(Input::exists()) {
-	$validate = new Validate();
-	$validation = $validate->check($_POST, array(
-		'username' => array(
-			'required' => True,
-			'min' => 2,
-			'max' => 20,
-			'unique' => 'users'
-		),
-		'password' => array(
-			'required' => True,
-			'min' => 6
-		),
-		'password_again' => array(
-			'required' => True,
-			'matches' => 'password'
-		),
-		'name' => array(
-			'required' => True,
-			'min' => 2,
-			'max' => 50
-		),
-	));
+	if(Token::check(Input::get('token'))) {
+		
+		$validate = new Validate();
 
-	if($validation->passed()) {
-		echo 'Passed';
-	} else {
-		foreach($validation->errors() as $errors) {
-			echo $errors, '<br>';
+		# Validation Rules
+		$validation = $validate->check($_POST, array(
+			'username' => array(
+				'required' => True,
+				'min' => 2,
+				'max' => 20,
+				'unique' => 'users'
+			),
+			'password' => array(
+				'required' => True,
+				'min' => 6
+			),
+			'password_again' => array(
+				'required' => True,
+				'matches' => 'password'
+			),
+			'name' => array(
+				'required' => True,
+				'min' => 2,
+				'max' => 50
+			),
+		));
+
+		# Check is validation passed
+		if($validation->passed()) {
+			echo 'Passed';
+		} else {
+			# Iterate through errors and display them
+			foreach($validation->errors() as $errors) {
+				echo $errors, '<br>';
+			}
 		}
 	}
-
 }
 
 ?>
@@ -58,5 +64,6 @@ if(Input::exists()) {
 		<input type="password" name="password_again" id="password_again" value="" autocomplete="off">
 	</div>
 
+	<input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
 	<input type="submit" value="Register">
 </form>

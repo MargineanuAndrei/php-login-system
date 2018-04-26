@@ -2,7 +2,7 @@
 <?php
 class Config {
 
-  // Helper function to easy access config data
+  # Helper method to easy access config data
   public static function get($path = null) {
     if($path) {
       $config = $GLOBALS['config'];

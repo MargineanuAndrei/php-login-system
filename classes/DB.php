@@ -6,7 +6,7 @@ class DB {
   # Connect to database
   private function __construct() {
     try {
-      # line of connection to db
+      # Line of connection to db
       $this->_pdo = new PDO('mysql:host='.Config::get('mysql/host').';dbname='.Config::get('mysql/db'), Config::get('mysql/username'), Config::get('mysql/password'));
     }
     # Catch error and die if where are any

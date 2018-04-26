@@ -72,8 +72,7 @@ class Validate {
 			}
 		}
 
-		/* Check if errors is emthy 
-		If errors is emthy validation have passed */
+		# Check if errors is emthy, if errors is emthy validation have passed 
 		if(empty($this->_errors)){
 			$this->_passed = True;
 		}
