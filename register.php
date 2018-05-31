@@ -31,8 +31,21 @@ if(Input::exists()) {
 
 		# Check is validation passed
 		if($validation->passed()) {
-			Session::flash('success', 'You registered successfully!');
-			header('Location: index.php');
+			$user = new User();
+			try{
+				$user->create(array(
+					'username' => '',
+					'password' => '',
+					'salt' => '',
+					'name' => '',
+					'joined' => '',
+					'role' => ''
+				));
+				Session::flash('success', 'You registered successfully!');
+				header('Location: index.php');
+			} catch(Exception $e) {
+				die($e->getMessage());
+			}
 		} else {
 			# Iterate through errors and display them
 			foreach($validation->errors() as $errors) {
