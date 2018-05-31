@@ -31,7 +31,8 @@ if(Input::exists()) {
 
 		# Check is validation passed
 		if($validation->passed()) {
-			echo 'Passed';
+			Session::flash('success', 'You registered successfully!');
+			header('Location: index.php');
 		} else {
 			# Iterate through errors and display them
 			foreach($validation->errors() as $errors) {
